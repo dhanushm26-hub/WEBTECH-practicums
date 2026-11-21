@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Grid Control Settings</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef4f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+        }
+
+        header {
+            background: #123c69;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        section {
+            margin-top: 25px;
+        }
+
+        .setting-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            background: #f1f7fa;
+            padding: 20px;
+            margin-top: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-info h3 {
+            color: #123c69;
+        }
+
+        .setting-info p {
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Custom toggle switch */
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 65px;
+            height: 34px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            appearance: none;
+            width: 0;
+            height: 0;
+            opacity: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #999;
+            border-radius: 34px;
+            transition: 0.4s;
+        }
+
+        .slider::before {
+            content: "";
+            position: absolute;
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+
+        .switch input:checked + .slider {
+            background: #087f5b;
+        }
+
+        .switch input:checked + .slider::before {
+            transform: translateX(31px);
+        }
+
+        .switch input:focus-visible + .slider {
+            outline: 3px solid #123c69;
+            outline-offset: 3px;
+        }
+
+        /* Status display */
+
+        .status-box {
+            background: #e0f2fe;
+            padding: 20px;
+            border-left: 5px solid #087f5b;
+            border-radius: 8px;
+            margin-top: 20px;
+            transition: 0.4s;
+        }
+
+        .status-box.disabled {
+            background: #ffeaea;
+            border-left-color: #dc3545;
+        }
+
+        .status-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #087f5b;
+        }
+
+        .status-box.disabled .status-text {
+            color: #dc3545;
+        }
+
+        .info {
+            background: #f1f7fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #555;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <h1>SMART GRID CONTROL SETTINGS</h1>
+
+        <p>Intelligent Electricity Management System</p>
+
+    </header>
+
+    <section>
+
+        <h2>About Smart Grid</h2>
+
+        <p>
+            A Smart Grid is an advanced electricity network
+            that uses digital technology to monitor and
+            manage electricity distribution.
+            It improves energy efficiency and reduces
+            electricity wastage.
+        </p>
+
+    </section>
+
+    <section>
+
+        <h2>Smart Grid Application Settings</h2>
+
+        <p>
+            Use the switches below to control different
+            Smart Grid application features.
+        </p>
+
+        <!-- Automatic Load Balancing -->
+
+        <div class="setting-box">
+
+            <div class="setting-info">
+
+                <h3>Automatic Load Balancing</h3>
+
+                <p>
+                    Automatically manage electricity demand
+                    and distribute power efficiently.
+                </p>
+
+                <span id="loadStatus">Disabled</span>
+
+            </div>
+
+            <label class="switch">
+
+                <input type="checkbox" id="loadToggle">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <!-- Smart Meter Monitoring -->
+
+        <div class="setting-box">
+
+            <div class="setting-info">
+
+                <h3>Smart Meter Monitoring</h3>
+
+                <p>
+                    Enable smart meter monitoring to track
+                    electricity consumption.
+                </p>
+
+                <span id="meterStatus">Disabled</span>
+
+            </div>
+
+            <label class="switch">
+
+                <input type="checkbox" id="meterToggle">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <!-- Renewable Energy Priority -->
+
+        <div class="setting-box">
+
+            <div class="setting-info">
+
+                <h3>Renewable Energy Priority</h3>
+
+                <p>
+                    Give priority to renewable energy
+                    sources such as solar and wind power.
+                </p>
+
+                <span id="renewableStatus">Disabled</span>
+
+            </div>
+
+            <label class="switch">
+
+                <input type="checkbox" id="renewableToggle">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+    </section>
+
+    <!-- Application Status -->
+
+    <section>
+
+        <h2>System Status</h2>
+
+        <div class="status-box" id="statusBox">
+
+            <p class="status-text" id="mainStatus">
+                Smart Grid Settings
+            </p>
+
+            <p id="statusMessage">
+                Enable a setting to activate its feature.
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="info">
+
+        <h3>Benefits of Smart Grid Control</h3>
+
+        <p>✔ Efficient electricity distribution</p>
+
+        <p>✔ Better energy management</p>
+
+        <p>✔ Reduced electricity wastage</p>
+
+        <p>✔ Improved renewable energy usage</p>
+
+    </section>
+
+    <footer>
+
+        <p>
+            Smart Grid Monitoring System |
+            Web Technology Project
+        </p>
+
+    </footer>
+
+</div>
+
+<script>
+
+    // Select toggle switches
+
+    const loadToggle =
+        document.querySelector("#loadToggle");
+
+    const meterToggle =
+        document.querySelector("#meterToggle");
+
+    const renewableToggle =
+        document.querySelector("#renewableToggle");
+
+
+    // Get status elements
+
+    const loadStatus =
+        document.querySelector("#loadStatus");
+
+    const meterStatus =
+        document.querySelector("#meterStatus");
+
+    const renewableStatus =
+        document.querySelector("#renewableStatus");
+
+    const statusBox =
+        document.querySelector("#statusBox");
+
+    const mainStatus =
+        document.querySelector("#mainStatus");
+
+    const statusMessage =
+        document.querySelector("#statusMessage");
+
+
+    // Load saved settings from Local Storage
+
+    loadToggle.checked =
+        localStorage.getItem("loadBalancing") === "true";
+
+    meterToggle.checked =
+        localStorage.getItem("smartMeter") === "true";
+
+    renewableToggle.checked =
+        localStorage.getItem("renewablePriority") === "true";
+
+
+    // Update application status
+
+    function updateStatus() {
+
+        loadStatus.textContent =
+            loadToggle.checked ? "Enabled" : "Disabled";
+
+        meterStatus.textContent =
+            meterToggle.checked ? "Enabled" : "Disabled";
+
+        renewableStatus.textContent =
+            renewableToggle.checked ? "Enabled" : "Disabled";
+
+
+        // Count enabled settings
+
+        let activeCount = 0;
+
+        if (loadToggle.checked) activeCount++;
+
+        if (meterToggle.checked) activeCount++;
+
+        if (renewableToggle.checked) activeCount++;
+
+
+        // Change application behaviour
+
+        statusBox.classList.toggle(
+            "disabled",
+            activeCount === 0
+        );
+
+        if (activeCount > 0) {
+
+            mainStatus.textContent =
+                "Smart Grid Features Active";
+
+            statusMessage.textContent =
+                activeCount + " of 3 features are enabled.";
+
+        } else {
+
+            mainStatus.textContent =
+                "Smart Grid Features Disabled";
+
+            statusMessage.textContent =
+                "All Smart Grid features are currently disabled.";
+
+        }
+
+    }
+
+
+    // Automatic Load Balancing Event
+
+    loadToggle.addEventListener("change", function() {
+
+        localStorage.setItem(
+            "loadBalancing",
+            loadToggle.checked
+        );
+
+        updateStatus();
+
+    });
+
+
+    // Smart Meter Monitoring Event
+
+    meterToggle.addEventListener("change", function() {
+
+        localStorage.setItem(
+            "smartMeter",
+            meterToggle.checked
+        );
+
+        updateStatus();
+
+    });
+
+
+    // Renewable Energy Priority Event
+
+    renewableToggle.addEventListener("change", function() {
+
+        localStorage.setItem(
+            "renewablePriority",
+            renewableToggle.checked
+        );
+
+        updateStatus();
+
+    });
+
+
+    // Display saved settings when page opens
+
+    updateStatus();
+
+</script>
+
+</body>
+
+</html>

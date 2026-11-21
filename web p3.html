@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Grid User Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            background-color: #222;
+            padding: 12px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        form {
+            background-color: white;
+            padding: 25px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            width: auto;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin-top: 20px;
+            border: none;
+            background-color: #003366;
+            color: white;
+            cursor: pointer;
+        }
+
+        button[type="reset"] {
+            background-color: #555;
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>SMART GRID TECHNOLOGY</h1>
+        <p>Smart Energy for a Better Future</p>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#form">Registration Form</a>
+    </nav>
+
+    <!-- HOME SECTION -->
+    <section id="home">
+
+        <h2>Welcome to Smart Grid</h2>
+
+        <p>
+            Smart Grid is an advanced electricity system
+            that uses digital technology to monitor and
+            manage electricity generation and consumption.
+        </p>
+
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+
+        <h2>About Smart Grid</h2>
+
+        <p>
+            Smart Grid helps consumers monitor electricity
+            usage, reduce power wastage and use renewable
+            energy sources such as solar and wind power.
+        </p>
+
+    </section>
+
+    <!-- USER INPUT FORM -->
+    <section id="form">
+
+        <h2 align="center">Smart Grid User Registration</h2>
+
+        <form action="#" method="post"
+              enctype="multipart/form-data">
+
+            <!-- TEXT INPUT -->
+            <label for="name">Full Name:</label>
+
+            <input type="text" id="name" name="name"
+                   placeholder="Enter your name"
+                   required minlength="3">
+
+            <!-- EMAIL INPUT -->
+            <label for="email">Email Address:</label>
+
+            <input type="email" id="email" name="email"
+                   placeholder="Enter your email"
+                   required>
+
+            <!-- PASSWORD INPUT -->
+            <label for="password">Password:</label>
+
+            <input type="password" id="password"
+                   name="password"
+                   placeholder="Enter password"
+                   required minlength="6">
+
+            <!-- NUMBER INPUT -->
+            <label for="units">Monthly Electricity Usage (Units):</label>
+
+            <input type="number" id="units" name="units"
+                   min="1" max="10000"
+                   placeholder="Enter electricity units"
+                   required>
+
+            <!-- DATE INPUT -->
+            <label for="date">Registration Date:</label>
+
+            <input type="date" id="date" name="date"
+                   required>
+
+            <!-- RADIO BUTTONS -->
+            <label>Connection Type:</label>
+
+            <input type="radio" id="home" name="connection"
+                   value="Home" required>
+            <label for="home">Home</label>
+
+            <input type="radio" id="commercial" name="connection"
+                   value="Commercial">
+            <label for="commercial">Commercial</label>
+
+            <input type="radio" id="industrial" name="connection"
+                   value="Industrial">
+            <label for="industrial">Industrial</label>
+
+            <!-- CHECKBOXES -->
+            <label>Renewable Energy Interests:</label>
+
+            <input type="checkbox" id="solar" name="energy[]"
+                   value="Solar">
+            <label for="solar">Solar Energy</label>
+
+            <input type="checkbox" id="wind" name="energy[]"
+                   value="Wind">
+            <label for="wind">Wind Energy</label>
+
+            <input type="checkbox" id="hydro" name="energy[]"
+                   value="Hydro">
+            <label for="hydro">Hydro Energy</label>
+
+            <!-- DROPDOWN -->
+            <label for="meter">Smart Meter Type:</label>
+
+            <select id="meter" name="meter" required>
+                <option value="">Select Meter Type</option>
+                <option value="Digital">Digital Meter</option>
+                <option value="Smart">Smart Meter</option>
+                <option value="Prepaid">Prepaid Meter</option>
+            </select>
+
+            <!-- TEXTAREA -->
+            <label for="address">Address / Suggestions:</label>
+
+            <textarea id="address" name="address"
+                      rows="4"
+                      placeholder="Enter your address or suggestions"
+                      required></textarea>
+
+            <!-- FILE INPUT -->
+            <label for="document">Upload Electricity Bill:</label>
+
+            <input type="file" id="document"
+                   name="document"
+                   accept=".pdf,.jpg,.jpeg,.png"
+                   required>
+
+            <!-- SUBMIT AND RESET BUTTONS -->
+            <button type="submit">Submit Registration</button>
+
+            <button type="reset">Reset Form</button>
+
+        </form>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>Smart Grid Technology Project</p>
+
+        <p>Web Technology | 2026</p>
+
+        <p>Smart Energy for a Sustainable Future</p>
+
+    </footer>
+
+</body>
+
+</html>

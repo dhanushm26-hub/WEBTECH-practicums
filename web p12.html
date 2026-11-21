@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Grid Monitoring System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef4f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        header {
+            background: #123c69;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .card {
+            background: #e0f2fe;
+            padding: 20px;
+            border: 1px solid #8cc9e8;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .card h3 {
+            color: #123c69;
+        }
+
+        .card p {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        button {
+            background: #087f5b;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        button:hover {
+            background: #055c42;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #123c69;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f1f7fa;
+        }
+
+        #status {
+            color: #087f5b;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>SMART GRID MONITORING SYSTEM</h1>
+        <p>Smart Electricity Management Using API Integration</p>
+    </header>
+
+    <section>
+        <h2>About Smart Grid</h2>
+        <p>
+            A Smart Grid is an advanced electricity network that uses
+            digital technology to monitor electricity generation,
+            distribution and consumption. It improves efficiency,
+            reliability and renewable energy usage.
+        </p>
+    </section>
+
+    <section>
+        <h2>Electricity Dashboard</h2>
+
+        <div class="dashboard">
+
+            <div class="card">
+                <h3>Carbon Intensity</h3>
+                <p id="carbon">--</p>
+                <span>gCO2/kWh</span>
+            </div>
+
+            <div class="card">
+                <h3>Grid Status</h3>
+                <p id="gridStatus">--</p>
+            </div>
+
+            <div class="card">
+                <h3>Renewable Energy</h3>
+                <p id="renewable">--</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section>
+        <h2>Electricity Generation Details</h2>
+
+        <button onclick="loadGridData()">
+            Refresh Grid Data
+        </button>
+
+        <p id="status">Waiting to load data...</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Energy Source</th>
+                        <th>Generation Percentage</th>
+                    </tr>
+                </thead>
+
+                <tbody id="gridTable">
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p>Smart Grid Monitoring System | Web Technology Project</p>
+    </footer>
+
+</div>
+
+<script>
+
+    async function loadGridData() {
+
+        const status = document.getElementById("status");
+        const table = document.getElementById("gridTable");
+
+        status.textContent = "Loading electricity data...";
+        table.textContent = "";
+
+        try {
+
+            // API endpoints
+            const generationURL =
+                "https://api.carbonintensity.org.uk/generation";
+
+            const intensityURL =
+                "https://api.carbonintensity.org.uk/intensity";
+
+            // Fetch API data
+            const [generationResponse, intensityResponse] =
+                await Promise.all([
+                    fetch(generationURL),
+                    fetch(intensityURL)
+                ]);
+
+            if (!generationResponse.ok ||
+                !intensityResponse.ok) {
+                throw new Error("Unable to fetch API data");
+            }
+
+            // Convert response into JSON
+            const generationData =
+                await generationResponse.json();
+
+            const intensityData =
+                await intensityResponse.json();
+
+            // Get electricity generation details
+            const mix =
+                generationData.data[0].generationmix;
+
+            // Get carbon intensity details
+            const intensity =
+                intensityData.data[0].intensity;
+
+            const carbonValue =
+                intensity.actual ?? intensity.forecast;
+
+            const carbonIndex =
+                intensity.index || "Unknown";
+
+            // Calculate renewable energy percentage
+            const renewableSources = [
+                "wind",
+                "solar",
+                "hydro"
+            ];
+
+            let renewableValue = 0;
+
+            mix.forEach(function(item) {
+
+                if (renewableSources.includes(item.fuel)) {
+                    renewableValue += item.perc;
+                }
+
+            });
+
+            // Display dashboard information
+            document.getElementById("carbon").textContent =
+                carbonValue !== null && carbonValue !== undefined
+                ? carbonValue
+                : "N/A";
+
+            document.getElementById("gridStatus").textContent =
+                carbonIndex;
+
+            document.getElementById("renewable").textContent =
+                renewableValue.toFixed(1) + "%";
+
+            // Display table data dynamically
+            mix.forEach(function(item, index) {
+
+                const row = document.createElement("tr");
+
+                const serial = document.createElement("td");
+                serial.textContent = index + 1;
+
+                const source = document.createElement("td");
+                source.textContent = item.fuel.toUpperCase();
+
+                const percentage = document.createElement("td");
+                percentage.textContent = item.perc + "%";
+
+                row.appendChild(serial);
+                row.appendChild(source);
+                row.appendChild(percentage);
+
+                table.appendChild(row);
+
+            });
+
+            status.textContent =
+                "Electricity data loaded successfully!";
+
+        }
+
+        catch (error) {
+
+            status.textContent =
+                "Error: Unable to load electricity data.";
+
+            console.error(error);
+
+        }
+
+        finally {
+
+            console.log("API request completed.");
+
+        }
+
+    }
+
+    // Load data when webpage opens
+    loadGridData();
+
+</script>
+
+</body>
+</html>

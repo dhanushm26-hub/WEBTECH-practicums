@@ -1,0 +1,411 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Grid Technology</title>
+
+    <style>
+
+        /* GENERAL STYLING */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f5f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* HEADER - STATIC POSITION */
+        header {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            position: static;
+        }
+
+        header h1 {
+            font-size: 32px;
+        }
+
+        /* NAVIGATION - STICKY POSITION */
+        nav {
+            background-color: #002b49;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            list-style: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #00e676;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        section {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #003366;
+            margin-bottom: 15px;
+        }
+
+        /* STATIC POSITION */
+        .static-box {
+            background-color: #d9ecff;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: static;
+        }
+
+        /* RELATIVE POSITION */
+        .relative-box {
+            background-color: #d9f7e5;
+            padding: 20px;
+            position: relative;
+            left: 20px;
+            top: 10px;
+            margin-bottom: 25px;
+        }
+
+        /* ABSOLUTE POSITION */
+        .absolute-container {
+            position: relative;
+            background-color: #e8e0ff;
+            padding: 40px 20px;
+            height: 150px;
+            border: 2px solid #8064c8;
+            margin-bottom: 20px;
+        }
+
+        .absolute-box {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #8064c8;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* FIXED POSITION */
+        .fixed-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #00a86b;
+            color: white;
+            padding: 12px 18px;
+            text-decoration: none;
+            border-radius: 8px;
+            z-index: 200;
+        }
+
+        .fixed-button:hover {
+            background-color: #006b45;
+        }
+
+        /* STICKY POSITION */
+        .sticky-heading {
+            position: sticky;
+            top: 55px;
+            background-color: #0077b6;
+            color: white;
+            padding: 12px;
+            margin-bottom: 15px;
+            z-index: 50;
+        }
+
+        /* CARDS */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #e6f4ff;
+            padding: 20px;
+            flex: 1 1 220px;
+            border-radius: 8px;
+            border: 1px solid #b5d8ed;
+        }
+
+        .card h3 {
+            color: #0077b6;
+            margin-bottom: 10px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #002b49;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media screen and (max-width: 600px) {
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            nav ul {
+                gap: 12px;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            .relative-box {
+                left: 5px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body id="top">
+
+    <!-- HEADER -->
+    <header>
+
+        <h1>SMART GRID TECHNOLOGY</h1>
+
+        <p>Smart Energy for a Better Future</p>
+
+    </header>
+
+    <!-- STICKY NAVIGATION -->
+    <nav>
+
+        <ul>
+
+            <li><a href="#home">Home</a></li>
+
+            <li><a href="#about">About</a></li>
+
+            <li><a href="#features">Features</a></li>
+
+            <li><a href="#positioning">CSS Positioning</a></li>
+
+            <li><a href="#contact">Contact</a></li>
+
+        </ul>
+
+    </nav>
+
+    <div class="container">
+
+        <!-- HOME SECTION -->
+        <section id="home">
+
+            <h2>Welcome to Smart Grid</h2>
+
+            <p>
+                Smart Grid is an advanced electricity network
+                that uses digital technology to monitor and
+                manage electricity generation, distribution
+                and consumption efficiently.
+            </p>
+
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about">
+
+            <h2>About Smart Grid</h2>
+
+            <p>
+                Smart Grid connects power stations, consumers
+                and renewable energy sources using modern
+                communication technology.
+            </p>
+
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section id="features">
+
+            <h2>Smart Grid Features</h2>
+
+            <div class="card-container">
+
+                <div class="card">
+                    <h3>Smart Meters</h3>
+                    <p>Monitor electricity usage in real time.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Fault Detection</h3>
+                    <p>Detect electricity problems automatically.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Renewable Energy</h3>
+                    <p>Support solar and wind energy.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CSS POSITIONING SECTION -->
+        <section id="positioning">
+
+            <h2>CSS Positioning Techniques</h2>
+
+            <p>
+                The following examples demonstrate five
+                CSS positioning techniques using Smart Grid.
+            </p>
+
+            <!-- STATIC -->
+            <h3>1. Static Position</h3>
+
+            <div class="static-box">
+
+                <strong>Smart Grid Information</strong>
+
+                <p>
+                    This element uses static positioning.
+                    It appears in the normal document flow.
+                </p>
+
+            </div>
+
+            <!-- RELATIVE -->
+            <h3>2. Relative Position</h3>
+
+            <div class="relative-box">
+
+                <strong>Smart Energy Monitoring</strong>
+
+                <p>
+                    This box is moved 20px to the right
+                    and 10px down from its normal position.
+                </p>
+
+            </div>
+
+            <!-- ABSOLUTE -->
+            <h3>3. Absolute Position</h3>
+
+            <div class="absolute-container">
+
+                <p>
+                    Smart Grid Power Monitoring System
+                </p>
+
+                <div class="absolute-box">
+                    ACTIVE
+                </div>
+
+            </div>
+
+            <p>
+                The ACTIVE label is positioned at the
+                top-right corner of its parent container.
+            </p>
+
+            <!-- FIXED -->
+            <h3>4. Fixed Position</h3>
+
+            <p>
+                Look at the bottom-right corner of the screen.
+                The green Back to Top button stays fixed
+                even when you scroll the webpage.
+            </p>
+
+            <!-- STICKY -->
+            <h3>5. Sticky Position</h3>
+
+            <div class="sticky-heading">
+
+                Smart Grid Live Information
+
+            </div>
+
+            <p>
+                This heading uses sticky positioning.
+                It sticks near the top while scrolling
+                through this section.
+            </p>
+
+            <p>
+                Smart Grid technology helps improve
+                electricity distribution and efficiency.
+            </p>
+
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+
+            <h2>Contact Us</h2>
+
+            <p>Smart Grid Technology Project</p>
+
+            <p>Web Technology | 2026</p>
+
+        </section>
+
+    </div>
+
+    <!-- FIXED BUTTON -->
+    <a href="#top" class="fixed-button">
+        Back to Top
+    </a>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <h3>SMART GRID TECHNOLOGY</h3>
+
+        <p>Smart Energy for a Sustainable Future</p>
+
+        <p>Web Technology Project | 2026</p>
+
+    </footer>
+
+</body>
+
+</html>

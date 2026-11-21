@@ -1,0 +1,373 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Grid Technology</title>
+
+    <style>
+
+        /* GENERAL STYLING */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f5f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #003366, #0077b6);
+            color: white;
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        header h1 {
+            font-size: 32px;
+        }
+
+        header p {
+            margin-top: 8px;
+        }
+
+        /* FLEXBOX NAVIGATION */
+        nav {
+            background-color: #002b49;
+            padding: 15px 25px;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* LOGO */
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* NAVIGATION LINKS */
+        .nav-links {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00e676;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        section {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        section h2 {
+            color: #003366;
+            margin-bottom: 15px;
+        }
+
+        /* FLEXBOX CARDS */
+        .card-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: stretch;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #e6f4ff;
+            padding: 20px;
+            flex: 1 1 250px;
+            border-radius: 8px;
+            border: 1px solid #b5d8ed;
+        }
+
+        .card h3 {
+            color: #0077b6;
+            margin-bottom: 10px;
+        }
+
+        /* IMAGE */
+        .hero-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #002b49;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media screen and (max-width: 768px) {
+
+            .navbar {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .nav-links {
+                flex-direction: row;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            header h1 {
+                font-size: 25px;
+            }
+        }
+
+        /* MOBILE SCREEN */
+        @media screen and (max-width: 480px) {
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .card-container {
+                flex-direction: column;
+            }
+
+            .card {
+                width: 100%;
+            }
+
+            section {
+                padding: 18px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>SMART GRID TECHNOLOGY</h1>
+        <p>Smart Energy for a Better Future</p>
+    </header>
+
+    <!-- RESPONSIVE NAVIGATION BAR -->
+    <nav>
+
+        <div class="navbar">
+
+            <div class="logo">
+                SMART GRID
+            </div>
+
+            <ul class="nav-links">
+
+                <li><a href="#home">Home</a></li>
+
+                <li><a href="#about">About</a></li>
+
+                <li><a href="#features">Features</a></li>
+
+                <li><a href="#benefits">Benefits</a></li>
+
+                <li><a href="#energy">Energy Data</a></li>
+
+                <li><a href="#contact">Contact</a></li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+
+        <!-- HOME SECTION -->
+        <section id="home">
+
+            <h2>Welcome to Smart Grid</h2>
+
+            <p>
+                Smart Grid is an advanced electricity network
+                that uses digital technology to monitor and
+                manage electricity generation, distribution
+                and consumption efficiently.
+            </p>
+
+            <img class="hero-image"
+                 src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200"
+                 alt="Electricity transmission towers">
+
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about">
+
+            <h2>About Smart Grid</h2>
+
+            <p>
+                Smart Grid is a modern electrical system
+                that connects power stations, consumers
+                and renewable energy sources using
+                communication technology.
+            </p>
+
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section id="features">
+
+            <h2>Smart Grid Features</h2>
+
+            <div class="card-container">
+
+                <div class="card">
+                    <h3>Smart Meters</h3>
+                    <p>
+                        Monitor electricity consumption
+                        in real time.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Fault Detection</h3>
+                    <p>
+                        Detect electricity problems
+                        automatically.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Renewable Energy</h3>
+                    <p>
+                        Supports solar and wind
+                        energy sources.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- BENEFITS SECTION -->
+        <section id="benefits">
+
+            <h2>Benefits of Smart Grid</h2>
+
+            <ul>
+                <li>Reduces electricity wastage.</li>
+                <li>Improves power supply reliability.</li>
+                <li>Supports renewable energy.</li>
+                <li>Reduces maintenance costs.</li>
+            </ul>
+
+        </section>
+
+        <!-- ENERGY DATA -->
+        <section id="energy">
+
+            <h2>Smart Grid Energy Data</h2>
+
+            <div class="card-container">
+
+                <div class="card">
+                    <h3>Solar Energy</h3>
+                    <p>100 kW - Active</p>
+                </div>
+
+                <div class="card">
+                    <h3>Wind Energy</h3>
+                    <p>150 kW - Active</p>
+                </div>
+
+                <div class="card">
+                    <h3>Hydro Energy</h3>
+                    <p>200 kW - Active</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact">
+
+            <h2>Contact Us</h2>
+
+            <p>
+                Smart Grid Technology Project
+            </p>
+
+            <p>
+                Email: smartgrid@example.com
+            </p>
+
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <h3>SMART GRID TECHNOLOGY</h3>
+
+        <p>Web Technology Project | 2026</p>
+
+        <p>Smart Energy for a Sustainable Future</p>
+
+    </footer>
+
+</body>
+
+</html>

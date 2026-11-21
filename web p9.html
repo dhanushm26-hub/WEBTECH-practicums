@@ -1,0 +1,606 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Grid Technology</title>
+
+    <style>
+
+        /* GENERAL STYLING */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f5f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+
+        header {
+            background: linear-gradient(135deg, #003366, #0077b6);
+            color: white;
+            text-align: center;
+            padding: 35px 15px;
+        }
+
+        header h1 {
+            font-size: 32px;
+        }
+
+        header p {
+            margin-top: 10px;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            background-color: #002b49;
+            padding: 15px;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            list-style: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #00e676;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        section {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+        }
+
+        h2 {
+            color: #003366;
+            margin-bottom: 15px;
+        }
+
+        /* IMAGE */
+
+        .hero-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        /* BUTTONS */
+
+        button {
+            background-color: #0077b6;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            margin: 10px 5px 10px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #00a86b;
+            transform: scale(1.05);
+        }
+
+        /* INFORMATION CARDS */
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #e6f4ff;
+            padding: 20px;
+            border: 1px solid #b5d8ed;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card h3 {
+            color: #0077b6;
+            margin-bottom: 10px;
+        }
+
+        /* CARD ANIMATION */
+
+        .show-card {
+            animation: slideUp 0.7s ease forwards;
+        }
+
+        @keyframes slideUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* NOTIFICATION */
+
+        .notification {
+            background-color: #00a86b;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* HIDDEN CONTENT */
+
+        .hidden-content {
+            display: none;
+            background-color: #e6f4ff;
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+
+        .hidden-content.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        /* FADE ANIMATION */
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* STATUS */
+
+        .status {
+            color: #00a86b;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background-color: #002b49;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media screen and (max-width: 768px) {
+
+            .card-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            header h1 {
+                font-size: 26px;
+            }
+
+        }
+
+        @media screen and (max-width: 480px) {
+
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            section {
+                padding: 15px;
+            }
+
+            .notification {
+                right: 10px;
+                left: 10px;
+                top: 10px;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <h1>SMART GRID TECHNOLOGY</h1>
+
+        <p>Smart Energy for a Better Future</p>
+
+    </header>
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <ul>
+
+            <li><a href="#home">Home</a></li>
+
+            <li><a href="#about">About</a></li>
+
+            <li><a href="#features">Features</a></li>
+
+            <li><a href="#interaction">Interactive Demo</a></li>
+
+        </ul>
+
+    </nav>
+
+    <div class="container">
+
+        <!-- HOME SECTION -->
+
+        <section id="home">
+
+            <h2>Welcome to Smart Grid</h2>
+
+            <p>
+                Smart Grid is an advanced electricity
+                network that uses digital technology
+                to monitor and manage electricity
+                generation and distribution.
+            </p>
+
+            <img class="hero-image"
+                 src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200"
+                 alt="Electricity transmission towers">
+
+        </section>
+
+        <!-- ABOUT SECTION -->
+
+        <section id="about">
+
+            <h2>About Smart Grid</h2>
+
+            <p>
+                Smart Grid connects power stations,
+                consumers and renewable energy sources
+                using modern communication technology.
+            </p>
+
+        </section>
+
+        <!-- FEATURES SECTION -->
+
+        <section id="features">
+
+            <h2>Smart Grid Features</h2>
+
+            <div class="card-container">
+
+                <div class="card">
+                    <h3>Smart Meters</h3>
+                    <p>
+                        Monitor electricity consumption
+                        in real time.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Fault Detection</h3>
+                    <p>
+                        Detect electricity problems
+                        automatically.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Renewable Energy</h3>
+                    <p>
+                        Supports solar and wind
+                        energy sources.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- INTERACTIVE SECTION -->
+
+        <section id="interaction">
+
+            <h2>Smart Grid Interactive Dashboard</h2>
+
+            <p>
+                Click the buttons below to explore
+                Smart Grid technology.
+            </p>
+
+            <!-- SHOW INFORMATION BUTTON -->
+
+            <button id="showBtn">
+                Show Energy Information
+            </button>
+
+            <!-- HIDE INFORMATION BUTTON -->
+
+            <button id="hideBtn">
+                Hide Information
+            </button>
+
+            <!-- INFORMATION CARDS -->
+
+            <div class="card-container" id="infoCards">
+
+                <div class="card">
+                    <h3>Solar Energy</h3>
+                    <p>
+                        Solar panels generate electricity
+                        using sunlight.
+                    </p>
+                    <span class="status">Active</span>
+                </div>
+
+                <div class="card">
+                    <h3>Wind Energy</h3>
+                    <p>
+                        Wind turbines generate clean
+                        electricity.
+                    </p>
+                    <span class="status">Active</span>
+                </div>
+
+                <div class="card">
+                    <h3>Power Monitoring</h3>
+                    <p>
+                        Smart meters monitor electricity
+                        consumption.
+                    </p>
+                    <span class="status">Monitoring</span>
+                </div>
+
+            </div>
+
+            <!-- NOTIFICATION BUTTON -->
+
+            <h2 style="margin-top:30px;">
+                Energy Notification
+            </h2>
+
+            <p>
+                Click the button to receive a Smart
+                Grid notification.
+            </p>
+
+            <button id="notifyBtn">
+                Show Notification
+            </button>
+
+            <!-- NOTIFICATION MESSAGE -->
+
+            <div class="notification" id="notification">
+                <span>Success!</span>
+                Smart Grid system is working properly.
+            </div>
+
+            <!-- OPEN AND CLOSE CONTENT -->
+
+            <h2 style="margin-top:30px;">
+                More Smart Grid Information
+            </h2>
+
+            <button id="toggleBtn">
+                Open / Close Information
+            </button>
+
+            <div class="hidden-content" id="extraInfo">
+
+                <h3>Advantages of Smart Grid</h3>
+
+                <p>
+                    1. Reduces electricity wastage.
+                </p>
+
+                <p>
+                    2. Improves power supply reliability.
+                </p>
+
+                <p>
+                    3. Supports renewable energy.
+                </p>
+
+                <p>
+                    4. Provides efficient electricity
+                    management.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h3>SMART GRID TECHNOLOGY</h3>
+
+        <p>Smart Energy for a Sustainable Future</p>
+
+        <p>Web Technology Project | 2026</p>
+
+    </footer>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        // GET HTML ELEMENTS
+
+        const showBtn = document.getElementById("showBtn");
+
+        const hideBtn = document.getElementById("hideBtn");
+
+        const infoCards = document.querySelectorAll(
+            "#infoCards .card"
+        );
+
+        const notifyBtn = document.getElementById("notifyBtn");
+
+        const notification = document.getElementById(
+            "notification"
+        );
+
+        const toggleBtn = document.getElementById("toggleBtn");
+
+        const extraInfo = document.getElementById("extraInfo");
+
+
+        // SHOW INFORMATION CARDS
+
+        showBtn.addEventListener("click", function() {
+
+            infoCards.forEach(function(card, index) {
+
+                card.classList.remove("show-card");
+
+                setTimeout(function() {
+
+                    card.style.animationDelay =
+                        (index * 0.2) + "s";
+
+                    card.classList.add("show-card");
+
+                }, 50);
+
+            });
+
+        });
+
+
+        // HIDE INFORMATION CARDS
+
+        hideBtn.addEventListener("click", function() {
+
+            infoCards.forEach(function(card) {
+
+                card.classList.remove("show-card");
+
+                card.style.opacity = "0";
+
+            });
+
+        });
+
+
+        // SHOW NOTIFICATION
+
+        notifyBtn.addEventListener("click", function() {
+
+            notification.classList.add("show");
+
+            setTimeout(function() {
+
+                notification.classList.remove("show");
+
+            }, 3000);
+
+        });
+
+
+        // OPEN AND CLOSE INFORMATION
+
+        toggleBtn.addEventListener("click", function() {
+
+            extraInfo.classList.toggle("active");
+
+            if (extraInfo.classList.contains("active")) {
+
+                toggleBtn.textContent = "Close Information";
+
+            } else {
+
+                toggleBtn.textContent = "Open Information";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

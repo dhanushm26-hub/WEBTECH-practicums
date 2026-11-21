@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Grid Task Manager</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef4f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        header {
+            background: #123c69;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        section {
+            margin-bottom: 25px;
+        }
+
+        form {
+            display: grid;
+            gap: 12px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #087f5b;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 3px;
+        }
+
+        button:hover {
+            background: #055c42;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background: #a71d2a;
+        }
+
+        .edit-btn {
+            background: #e69b00;
+        }
+
+        .edit-btn:hover {
+            background: #b87900;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit, minmax(150px, 1fr)
+            );
+            gap: 15px;
+        }
+
+        .card {
+            background: #e0f2fe;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #8cc9e8;
+            border-radius: 8px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #123c69;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f1f7fa;
+        }
+
+        .completed {
+            color: green;
+            font-weight: bold;
+        }
+
+        .pending {
+            color: #d17b00;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>SMART GRID TASK MANAGER</h1>
+        <p>Smart Electricity Management System</p>
+    </header>
+
+    <section>
+        <h2>About Smart Grid</h2>
+
+        <p>
+            A Smart Grid is an advanced electricity network
+            that uses digital technology to monitor and manage
+            electricity generation, distribution and consumption.
+        </p>
+
+        <p>
+            This task manager helps manage maintenance,
+            electricity monitoring and renewable energy tasks.
+        </p>
+    </section>
+
+    <section>
+        <h2>Task Dashboard</h2>
+
+        <div class="dashboard">
+
+            <div class="card">
+                <h3>Total Tasks</h3>
+                <h2 id="totalTasks">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Pending Tasks</h3>
+                <h2 id="pendingTasks">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Completed Tasks</h3>
+                <h2 id="completedTasks">0</h2>
+            </div>
+
+        </div>
+    </section>
+
+    <section>
+        <h2>Add Smart Grid Task</h2>
+
+        <form id="taskForm">
+
+            <input
+                type="text"
+                id="taskName"
+                placeholder="Enter task name"
+                required
+            >
+
+            <textarea
+                id="taskDescription"
+                placeholder="Enter task description"
+                required
+            ></textarea>
+
+            <select id="taskCategory" required>
+                <option value="">Select Category</option>
+                <option value="Maintenance">Maintenance</option>
+                <option value="Power Monitoring">Power Monitoring</option>
+                <option value="Renewable Energy">Renewable Energy</option>
+                <option value="Electricity Distribution">
+                    Electricity Distribution
+                </option>
+            </select>
+
+            <select id="taskStatus">
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+            </select>
+
+            <button type="submit" id="submitBtn">
+                Add Task
+            </button>
+
+        </form>
+    </section>
+
+    <section>
+        <h2>Manage Smart Grid Tasks</h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Task Name</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="taskTable">
+                </tbody>
+
+            </table>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>Smart Grid Task Manager | Web Technology Project</p>
+    </footer>
+
+</div>
+
+<script>
+
+    // Get HTML elements
+
+    const form = document.getElementById("taskForm");
+    const taskTable = document.getElementById("taskTable");
+
+    let tasks = JSON.parse(
+        localStorage.getItem("smartGridTasks")
+    ) || [];
+
+    let editId = null;
+
+    // Save tasks in Local Storage
+
+    function saveTasks() {
+
+        localStorage.setItem(
+            "smartGridTasks",
+            JSON.stringify(tasks)
+        );
+
+    }
+
+    // Display tasks
+
+    function displayTasks() {
+
+        taskTable.textContent = "";
+
+        tasks.forEach(function(task) {
+
+            const row = document.createElement("tr");
+
+            const values = [
+                task.id,
+                task.name,
+                task.description,
+                task.category,
+                task.status
+            ];
+
+            values.forEach(function(value, index) {
+
+                const cell = document.createElement("td");
+
+                cell.textContent = value;
+
+                if (index === 4) {
+                    cell.className =
+                        value === "Completed"
+                        ? "completed"
+                        : "pending";
+                }
+
+                row.appendChild(cell);
+
+            });
+
+            // Edit button
+
+            const actionCell = document.createElement("td");
+
+            const editButton = document.createElement("button");
+
+            editButton.textContent = "Edit";
+            editButton.className = "edit-btn";
+
+            editButton.addEventListener("click", function() {
+                editTask(task.id);
+            });
+
+            // Delete button
+
+            const deleteButton = document.createElement("button");
+
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "delete-btn";
+
+            deleteButton.addEventListener("click", function() {
+                deleteTask(task.id);
+            });
+
+            actionCell.appendChild(editButton);
+            actionCell.appendChild(deleteButton);
+
+            row.appendChild(actionCell);
+
+            taskTable.appendChild(row);
+
+        });
+
+        updateDashboard();
+
+    }
+
+    // Create and Update tasks
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById("taskName").value;
+
+        const description =
+            document.getElementById("taskDescription").value;
+
+        const category =
+            document.getElementById("taskCategory").value;
+
+        const status =
+            document.getElementById("taskStatus").value;
+
+        if (editId !== null) {
+
+            // Find existing task
+
+            const task = tasks.find(function(item) {
+                return item.id === editId;
+            });
+
+            task.name = name;
+            task.description = description;
+            task.category = category;
+            task.status = status;
+
+            editId = null;
+
+            document.getElementById("submitBtn").textContent =
+                "Add Task";
+
+        } else {
+
+            // Create new task
+
+            const newTask = {
+                id: Date.now(),
+                name: name,
+                description: description,
+                category: category,
+                status: status
+            };
+
+            tasks.push(newTask);
+
+        }
+
+        saveTasks();
+
+        displayTasks();
+
+        form.reset();
+
+    });
+
+    // Edit task
+
+    function editTask(id) {
+
+        const task = tasks.find(function(item) {
+            return item.id === id;
+        });
+
+        document.getElementById("taskName").value =
+            task.name;
+
+        document.getElementById("taskDescription").value =
+            task.description;
+
+        document.getElementById("taskCategory").value =
+            task.category;
+
+        document.getElementById("taskStatus").value =
+            task.status;
+
+        editId = id;
+
+        document.getElementById("submitBtn").textContent =
+            "Update Task";
+
+    }
+
+    // Delete task
+
+    function deleteTask(id) {
+
+        tasks = tasks.filter(function(task) {
+            return task.id !== id;
+        });
+
+        saveTasks();
+
+        displayTasks();
+
+    }
+
+    // Update dashboard
+
+    function updateDashboard() {
+
+        const pending = tasks.filter(function(task) {
+            return task.status === "Pending";
+        });
+
+        const completed = tasks.filter(function(task) {
+            return task.status === "Completed";
+        });
+
+        document.getElementById("totalTasks").textContent =
+            tasks.length;
+
+        document.getElementById("pendingTasks").textContent =
+            pending.length;
+
+        document.getElementById("completedTasks").textContent =
+            completed.length;
+
+    }
+
+    // Initial display
+
+    displayTasks();
+
+</script>
+
+</body>
+</html>

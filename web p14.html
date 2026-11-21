@@ -1,0 +1,606 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Grid Energy Explorer</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef4f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        header {
+            background: #123c69;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        section {
+            margin: 25px 0;
+        }
+
+        .search-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        input, select {
+            flex: 1;
+            min-width: 180px;
+            padding: 12px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        input:focus, select:focus {
+            outline: 2px solid #087f5b;
+        }
+
+        button {
+            background: #087f5b;
+            color: white;
+            padding: 11px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #055c42;
+            transform: scale(1.03);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            transition: 0.3s;
+            background: #f8fcff;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px #bbb;
+        }
+
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .card h3 {
+            color: #123c69;
+        }
+
+        .card p {
+            line-height: 1.5;
+        }
+
+        .card button {
+            margin: 5px 3px;
+        }
+
+        .favorite {
+            background: #e69b00;
+        }
+
+        .selected {
+            border: 2px solid #087f5b;
+            background: #e5fff3;
+        }
+
+        details {
+            background: #eef4f8;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #123c69;
+        }
+
+        .compare-box {
+            background: #e0f2fe;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .compare-box ul {
+            padding-left: 25px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #555;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>SMART GRID ENERGY EXPLORER</h1>
+        <p>Explore and Manage Smart Electricity Sources</p>
+    </header>
+
+    <section>
+        <h2>About Smart Grid</h2>
+
+        <p>
+            A Smart Grid is a modern electricity network
+            that uses digital technology to monitor and
+            manage electricity generation and distribution.
+            It improves energy efficiency and supports
+            renewable energy sources.
+        </p>
+    </section>
+
+    <section>
+
+        <h2>Energy Source Explorer</h2>
+
+        <p>
+            Search and filter different electricity
+            generation sources using this interactive system.
+        </p>
+
+        <!-- Search and Filter -->
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search energy source..."
+            >
+
+            <select id="categoryFilter">
+
+                <option value="All">All Energy Sources</option>
+
+                <option value="Renewable">Renewable Energy</option>
+
+                <option value="Non-Renewable">
+                    Non-Renewable Energy
+                </option>
+
+            </select>
+
+            <button id="resetBtn">
+                Reset
+            </button>
+
+        </div>
+
+        <!-- Energy Cards -->
+
+        <div class="grid" id="energyContainer">
+
+        </div>
+
+        <p id="resultCount"></p>
+
+    </section>
+
+    <!-- Comparison Section -->
+
+    <section>
+
+        <h2>Energy Source Comparison</h2>
+
+        <div class="compare-box">
+
+            <h3>Selected Energy Sources</h3>
+
+            <ul id="compareList">
+                <li>No energy sources selected.</li>
+            </ul>
+
+            <button id="clearCompare">
+                Clear Comparison
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- Smart Grid Benefits -->
+
+    <section>
+
+        <h2>Benefits of Smart Grid</h2>
+
+        <ul>
+            <li>Improves electricity efficiency.</li>
+            <li>Supports renewable energy.</li>
+            <li>Reduces electricity wastage.</li>
+            <li>Provides better power management.</li>
+            <li>Improves electricity supply reliability.</li>
+        </ul>
+
+    </section>
+
+    <footer>
+        <p>Smart Grid Monitoring System | Web Technology Project</p>
+    </footer>
+
+</div>
+
+<script>
+
+    // Energy source information
+
+    const energySources = [
+
+        {
+            id: 1,
+            name: "Solar Energy",
+            category: "Renewable",
+            capacity: "High",
+            description:
+                "Solar energy uses sunlight to generate electricity.",
+            image:
+                "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500"
+        },
+
+        {
+            id: 2,
+            name: "Wind Energy",
+            category: "Renewable",
+            capacity: "High",
+            description:
+                "Wind turbines convert wind power into electricity.",
+            image:
+                "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=500"
+        },
+
+        {
+            id: 3,
+            name: "Hydro Energy",
+            category: "Renewable",
+            capacity: "High",
+            description:
+                "Hydropower generates electricity using flowing water.",
+            image:
+                "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=500"
+        },
+
+        {
+            id: 4,
+            name: "Thermal Energy",
+            category: "Non-Renewable",
+            capacity: "High",
+            description:
+                "Thermal power plants generate electricity using heat.",
+            image:
+                "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=500"
+        },
+
+        {
+            id: 5,
+            name: "Biomass Energy",
+            category: "Renewable",
+            capacity: "Medium",
+            description:
+                "Biomass uses organic materials to produce electricity.",
+            image:
+                "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500"
+        },
+
+        {
+            id: 6,
+            name: "Nuclear Energy",
+            category: "Non-Renewable",
+            capacity: "High",
+            description:
+                "Nuclear power generates electricity through nuclear reactions.",
+            image:
+                "https://images.unsplash.com/photo-1516937941344-00b4e0337589?w=500"
+        }
+
+    ];
+
+    // Select HTML elements
+
+    const container =
+        document.querySelector("#energyContainer");
+
+    const searchInput =
+        document.querySelector("#searchInput");
+
+    const categoryFilter =
+        document.querySelector("#categoryFilter");
+
+    const resultCount =
+        document.querySelector("#resultCount");
+
+    const compareList =
+        document.querySelector("#compareList");
+
+    let selectedSources = [];
+
+    // Display energy sources
+
+    function displaySources(data) {
+
+        container.innerHTML = "";
+
+        data.forEach(function(source) {
+
+            const card = document.createElement("div");
+
+            card.classList.add("card");
+
+            if (selectedSources.find(function(item) {
+                return item.id === source.id;
+            })) {
+                card.classList.add("selected");
+            }
+
+            const image = document.createElement("img");
+            image.src = source.image;
+            image.alt = source.name;
+            image.loading = "lazy";
+
+            const heading = document.createElement("h3");
+            heading.textContent = source.name;
+
+            const category = document.createElement("p");
+            category.textContent =
+                "Category: " + source.category;
+
+            const capacity = document.createElement("p");
+            capacity.textContent =
+                "Capacity: " + source.capacity;
+
+            const description = document.createElement("p");
+            description.textContent = source.description;
+
+            // Details section
+
+            const details = document.createElement("details");
+
+            const summary = document.createElement("summary");
+            summary.textContent = "View More Information";
+
+            const info = document.createElement("p");
+            info.textContent =
+                source.name + " is an energy source used in modern electricity systems.";
+
+            details.appendChild(summary);
+            details.appendChild(info);
+
+            // Compare button
+
+            const compareButton =
+                document.createElement("button");
+
+            compareButton.textContent = "Compare";
+
+            compareButton.addEventListener("click", function() {
+
+                toggleCompare(source.id);
+
+            });
+
+            // Favorite button
+
+            const favoriteButton =
+                document.createElement("button");
+
+            favoriteButton.textContent = "Favorite";
+            favoriteButton.classList.add("favorite");
+
+            favoriteButton.addEventListener("click", function() {
+
+                favoriteButton.classList.toggle("selected");
+
+            });
+
+            // Add elements to card
+
+            card.appendChild(image);
+            card.appendChild(heading);
+            card.appendChild(category);
+            card.appendChild(capacity);
+            card.appendChild(description);
+            card.appendChild(details);
+            card.appendChild(compareButton);
+            card.appendChild(favoriteButton);
+
+            container.appendChild(card);
+
+        });
+
+        resultCount.textContent =
+            "Showing " + data.length + " energy sources.";
+
+    }
+
+    // Search and filter function
+
+    function filterSources() {
+
+        const searchValue =
+            searchInput.value.toLowerCase();
+
+        const categoryValue =
+            categoryFilter.value;
+
+        const filtered = energySources.filter(function(source) {
+
+            const matchesSearch =
+                source.name.toLowerCase().includes(searchValue);
+
+            const matchesCategory =
+                categoryValue === "All" ||
+                source.category === categoryValue;
+
+            return matchesSearch && matchesCategory;
+
+        });
+
+        displaySources(filtered);
+
+    }
+
+    // Compare energy sources
+
+    function toggleCompare(id) {
+
+        const source = energySources.find(function(item) {
+            return item.id === id;
+        });
+
+        const existing = selectedSources.find(function(item) {
+            return item.id === id;
+        });
+
+        if (existing) {
+
+            selectedSources = selectedSources.filter(function(item) {
+                return item.id !== id;
+            });
+
+        } else {
+
+            selectedSources.push(source);
+
+        }
+
+        updateComparison();
+        filterSources();
+
+    }
+
+    // Update comparison list
+
+    function updateComparison() {
+
+        compareList.innerHTML = "";
+
+        if (selectedSources.length === 0) {
+
+            const message = document.createElement("li");
+
+            message.textContent =
+                "No energy sources selected.";
+
+            compareList.appendChild(message);
+
+        } else {
+
+            selectedSources.forEach(function(source) {
+
+                const item = document.createElement("li");
+
+                item.textContent =
+                    source.name + " - " +
+                    source.category + " - Capacity: " +
+                    source.capacity;
+
+                compareList.appendChild(item);
+
+            });
+
+        }
+
+    }
+
+    // Search event
+
+    searchInput.addEventListener(
+        "input",
+        filterSources
+    );
+
+    // Category filter event
+
+    categoryFilter.addEventListener(
+        "change",
+        filterSources
+    );
+
+    // Reset button
+
+    document.querySelector("#resetBtn")
+        .addEventListener("click", function() {
+
+            searchInput.value = "";
+
+            categoryFilter.value = "All";
+
+            filterSources();
+
+        });
+
+    // Clear comparison
+
+    document.querySelector("#clearCompare")
+        .addEventListener("click", function() {
+
+            selectedSources = [];
+
+            updateComparison();
+
+            filterSources();
+
+        });
+
+    // Demonstrate querySelectorAll
+
+    document.querySelectorAll("button").forEach(function(button) {
+
+        button.classList.remove("hidden");
+
+    });
+
+    // Initial display
+
+    displaySources(energySources);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,571 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Grid DOM Manipulation</title>
+
+    <style>
+
+        /* GENERAL STYLING */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f5f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+
+        header {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        header h1 {
+            font-size: 30px;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            background-color: #002b49;
+            padding: 15px;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* MAIN CONTAINER */
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        section {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        h2 {
+            color: #003366;
+            margin-bottom: 15px;
+        }
+
+        /* INPUT AREA */
+
+        .input-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 180px;
+            padding: 12px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        /* BUTTON */
+
+        button {
+            background-color: #0077b6;
+            color: white;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #00a86b;
+        }
+
+        /* INFORMATION CARDS */
+
+        #energyList {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .energy-card {
+            background-color: #e6f4ff;
+            border: 1px solid #b5d8ed;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .energy-card h3 {
+            color: #0077b6;
+            margin-bottom: 8px;
+        }
+
+        .energy-card p {
+            margin-bottom: 10px;
+        }
+
+        .status {
+            color: green;
+            font-weight: bold;
+        }
+
+        .delete-btn {
+            background-color: #d62828;
+            margin-top: 10px;
+        }
+
+        .delete-btn:hover {
+            background-color: #a00000;
+        }
+
+        /* MESSAGE */
+
+        #message {
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 5px;
+            color: #006b45;
+            background-color: #d9f7e5;
+            display: none;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background-color: #002b49;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media screen and (max-width: 600px) {
+
+            #energyList {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            section {
+                padding: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <h1>SMART GRID TECHNOLOGY</h1>
+
+        <p>Smart Energy for a Better Future</p>
+
+    </header>
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <ul>
+
+            <li><a href="#home">Home</a></li>
+
+            <li><a href="#about">About</a></li>
+
+            <li><a href="#dashboard">Dashboard</a></li>
+
+        </ul>
+
+    </nav>
+
+    <div class="container">
+
+        <!-- HOME SECTION -->
+
+        <section id="home">
+
+            <h2>Welcome to Smart Grid</h2>
+
+            <p>
+                Smart Grid is an advanced electricity
+                network that uses digital technology
+                to monitor and manage electricity
+                generation and distribution.
+            </p>
+
+        </section>
+
+        <!-- ABOUT SECTION -->
+
+        <section id="about">
+
+            <h2>About Smart Grid</h2>
+
+            <p>
+                Smart Grid connects power stations,
+                consumers and renewable energy sources
+                using modern communication technology.
+            </p>
+
+        </section>
+
+        <!-- DOM MANIPULATION SECTION -->
+
+        <section id="dashboard">
+
+            <h2>Smart Grid Energy Dashboard</h2>
+
+            <p>
+                Add, update and remove electricity
+                information using the controls below.
+            </p>
+
+            <br>
+
+            <!-- ADD ENERGY INPUT -->
+
+            <h3>Add New Energy Source</h3>
+
+            <div class="input-area">
+
+                <input type="text"
+                       id="energyName"
+                       placeholder="Enter energy source">
+
+                <input type="number"
+                       id="energyPower"
+                       placeholder="Enter power in kW"
+                       min="0">
+
+                <button id="addBtn">
+                    Add Energy
+                </button>
+
+            </div>
+
+            <!-- UPDATE ENERGY INPUT -->
+
+            <h3>Update Energy Information</h3>
+
+            <div class="input-area">
+
+                <input type="text"
+                       id="updateName"
+                       placeholder="Enter existing energy name">
+
+                <input type="number"
+                       id="updatePower"
+                       placeholder="Enter new power in kW"
+                       min="0">
+
+                <button id="updateBtn">
+                    Update Energy
+                </button>
+
+            </div>
+
+            <!-- ENERGY INFORMATION -->
+
+            <h3>Available Energy Sources</h3>
+
+            <br>
+
+            <div id="energyList">
+
+                <div class="energy-card">
+
+                    <h3>Solar Energy</h3>
+
+                    <p>
+                        Power Output:
+                        <span>100 kW</span>
+                    </p>
+
+                    <p class="status">Active</p>
+
+                    <button class="delete-btn">
+                        Remove
+                    </button>
+
+                </div>
+
+                <div class="energy-card">
+
+                    <h3>Wind Energy</h3>
+
+                    <p>
+                        Power Output:
+                        <span>150 kW</span>
+                    </p>
+
+                    <p class="status">Active</p>
+
+                    <button class="delete-btn">
+                        Remove
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- MESSAGE -->
+
+            <div id="message"></div>
+
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h3>SMART GRID TECHNOLOGY</h3>
+
+        <p>Smart Energy for a Sustainable Future</p>
+
+        <p>Web Technology Project | 2026</p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT DOM MANIPULATION -->
+
+    <script>
+
+        // GET HTML ELEMENTS
+
+        const energyName =
+            document.getElementById("energyName");
+
+        const energyPower =
+            document.getElementById("energyPower");
+
+        const energyList =
+            document.getElementById("energyList");
+
+        const message =
+            document.getElementById("message");
+
+
+        // DISPLAY MESSAGE
+
+        function showMessage(text) {
+
+            message.textContent = text;
+
+            message.style.display = "block";
+
+        }
+
+
+        // ADD ENERGY SOURCE
+
+        document.getElementById("addBtn")
+        .addEventListener("click", function() {
+
+            let name = energyName.value.trim();
+
+            let power = energyPower.value;
+
+            if (name === "" || power === "" ||
+                Number(power) <= 0) {
+
+                showMessage(
+                    "Please enter a valid name and power."
+                );
+
+                return;
+
+            }
+
+            // CREATE NEW ELEMENT
+
+            let card = document.createElement("div");
+
+            card.classList.add("energy-card");
+
+            // ADD HTML CONTENT
+
+            card.innerHTML = `
+                <h3></h3>
+                <p>Power Output: <span></span></p>
+                <p class="status">Active</p>
+                <button class="delete-btn">Remove</button>
+            `;
+
+            // ADD TEXT USING textContent
+
+            card.querySelector("h3").textContent = name;
+
+            card.querySelector("span").textContent =
+                power + " kW";
+
+            // SET ATTRIBUTE
+
+            card.setAttribute("data-source", name);
+
+            // ADD CARD TO WEBPAGE
+
+            energyList.appendChild(card);
+
+            // CLEAR INPUT
+
+            energyName.value = "";
+
+            energyPower.value = "";
+
+            showMessage("Energy source added successfully!");
+
+        });
+
+
+        // UPDATE ENERGY SOURCE
+
+        document.getElementById("updateBtn")
+        .addEventListener("click", function() {
+
+            let name = document.getElementById(
+                "updateName"
+            ).value.trim();
+
+            let power = document.getElementById(
+                "updatePower"
+            ).value;
+
+            if (name === "" || power === "" ||
+                Number(power) <= 0) {
+
+                showMessage(
+                    "Enter a valid energy name and power."
+                );
+
+                return;
+
+            }
+
+            // SELECT THE ENERGY CARD
+
+            let cards = energyList.querySelectorAll(
+                ".energy-card"
+            );
+
+            let found = false;
+
+            cards.forEach(function(card) {
+
+                let title = card.querySelector("h3");
+
+                if (title.textContent.toLowerCase() ===
+                    name.toLowerCase()) {
+
+                    card.querySelector("span").textContent =
+                        power + " kW";
+
+                    found = true;
+
+                }
+
+            });
+
+            if (found) {
+
+                showMessage(
+                    "Energy information updated successfully!"
+                );
+
+            } else {
+
+                showMessage(
+                    "Energy source not found!"
+                );
+
+            }
+
+            document.getElementById("updateName").value = "";
+
+            document.getElementById("updatePower").value = "";
+
+        });
+
+
+        // REMOVE ENERGY SOURCE
+
+        energyList.addEventListener(
+            "click",
+            function(event) {
+
+                if (event.target.classList.contains(
+                    "delete-btn"
+                )) {
+
+                    // REMOVE SELECTED CARD
+
+                    event.target.closest(
+                        ".energy-card"
+                    ).remove();
+
+                    showMessage(
+                        "Energy source removed successfully!"
+                    );
+
+                }
+
+            }
+        );
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Grid Image Gallery</title>
+
+    <style>
+
+        /* GENERAL STYLING */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f5f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #003366, #0077b6);
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        header h1 {
+            font-size: 32px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 17px;
+        }
+
+        /* NAVIGATION */
+        nav {
+            background-color: #002b49;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            list-style: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #00e676;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        section h2 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* CSS GRID GALLERY */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* GALLERY CARD */
+        .gallery-item {
+            background-color: white;
+            border: 1px solid #d5e1ea;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }
+
+        /* IMAGE DIMENSIONS */
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* IMAGE CAPTIONS */
+        .gallery-item figcaption {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .gallery-item h3 {
+            color: #0077b6;
+            margin-bottom: 8px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #002b49;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        /* TABLET RESPONSIVE DESIGN */
+        @media screen and (max-width: 768px) {
+
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            header h1 {
+                font-size: 26px;
+            }
+        }
+
+        /* MOBILE RESPONSIVE DESIGN */
+        @media screen and (max-width: 480px) {
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 12px;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            .gallery-item img {
+                height: 200px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+        <h1>SMART GRID TECHNOLOGY</h1>
+
+        <p>Smart Energy for a Better Future</p>
+
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav>
+
+        <ul>
+
+            <li><a href="#home">Home</a></li>
+
+            <li><a href="#gallery">Gallery</a></li>
+
+            <li><a href="#about">About</a></li>
+
+            <li><a href="#contact">Contact</a></li>
+
+        </ul>
+
+    </nav>
+
+    <div class="container">
+
+        <!-- HOME SECTION -->
+        <section id="home">
+
+            <h2>Welcome to Smart Grid</h2>
+
+            <p class="description">
+
+                Smart Grid is a modern electricity network
+                that uses digital technology to monitor
+                electricity generation and distribution.
+
+            </p>
+
+        </section>
+
+        <!-- IMAGE GALLERY SECTION -->
+        <section id="gallery">
+
+            <h2>Smart Grid Image Gallery</h2>
+
+            <p class="description">
+
+                Explore different technologies used in
+                smart electricity systems and renewable energy.
+
+            </p>
+
+            <div class="gallery">
+
+                <!-- IMAGE 1 -->
+                <figure class="gallery-item">
+
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800"
+                         alt="Solar panels generating electricity">
+
+                    <figcaption>
+
+                        <h3>Solar Energy</h3>
+
+                        <p>
+                            Solar panels convert sunlight
+                            into electrical energy.
+                        </p>
+
+                    </figcaption>
+
+                </figure>
+
+                <!-- IMAGE 2 -->
+                <figure class="gallery-item">
+
+                    <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800"
+                         alt="Wind turbines producing renewable energy">
+
+                    <figcaption>
+
+                        <h3>Wind Energy</h3>
+
+                        <p>
+                            Wind turbines generate clean
+                            electricity using wind power.
+                        </p>
+
+                    </figcaption>
+
+                </figure>
+
+                <!-- IMAGE 3 -->
+                <figure class="gallery-item">
+
+                    <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800"
+                         alt="Electricity transmission towers">
+
+                    <figcaption>
+
+                        <h3>Power Transmission</h3>
+
+                        <p>
+                            Transmission lines transfer
+                            electricity to consumers.
+                        </p>
+
+                    </figcaption>
+
+                </figure>
+
+                <!-- IMAGE 4 -->
+                <figure class="gallery-item">
+
+                    <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=800"
+                         alt="Renewable energy and green electricity">
+
+                    <figcaption>
+
+                        <h3>Green Energy</h3>
+
+                        <p>
+                            Renewable energy helps
+                            reduce environmental pollution.
+                        </p>
+
+                    </figcaption>
+
+                </figure>
+
+                <!-- IMAGE 5 -->
+                <figure class="gallery-item">
+
+                    <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=800"
+                         alt="Modern city infrastructure">
+
+                    <figcaption>
+
+                        <h3>Smart Infrastructure</h3>
+
+                        <p>
+                            Modern infrastructure supports
+                            efficient energy management.
+                        </p>
+
+                    </figcaption>
+
+                </figure>
+
+                <!-- IMAGE 6 -->
+                <figure class="gallery-item">
+
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800"
+                         alt="Modern technology and control workspace">
+
+                    <figcaption>
+
+                        <h3>Energy Monitoring</h3>
+
+                        <p>
+                            Digital systems monitor
+                            and manage electricity usage.
+                        </p>
+
+                    </figcaption>
+
+                </figure>
+
+            </div>
+
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about">
+
+            <h2>About Smart Grid</h2>
+
+            <p class="description">
+
+                Smart Grid technology improves electricity
+                reliability, reduces power wastage and
+                supports renewable energy sources such
+                as solar and wind power.
+
+            </p>
+
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact">
+
+            <h2>Contact Us</h2>
+
+            <p class="description">
+
+                Smart Grid Technology Project
+                <br>
+                Web Technology | 2026
+
+            </p>
+
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <h3>SMART GRID TECHNOLOGY</h3>
+
+        <p>Smart Energy for a Sustainable Future</p>
+
+        <p>Web Technology Project | 2026</p>
+
+    </footer>
+
+</body>
+
+</html>
